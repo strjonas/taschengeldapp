@@ -14,5 +14,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.Taschengeldapp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Taschengeldapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Taschengeldapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

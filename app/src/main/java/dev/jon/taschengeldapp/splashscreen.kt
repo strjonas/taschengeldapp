@@ -12,6 +12,13 @@ class splashscreen : AppCompatActivity() {
         setContentView(R.layout.activity_splashscreen)
         supportActionBar?.hide();
 
+        namesChilds.add("alex")
+        namesChilds.add("lariss")
+        idsChilds.add("1234")
+        idsChilds.add("1235")
+        balancesChilds.add(23.00)
+        balancesChilds.add(15.00)
+
 
         // if data is loaded -> goto main Screen
         val intent = Intent(this, MainActivity::class.java);
