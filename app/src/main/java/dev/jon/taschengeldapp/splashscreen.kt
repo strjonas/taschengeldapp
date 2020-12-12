@@ -9,12 +9,13 @@ import java.lang.Thread.sleep
 class splashscreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splashscreen)
         supportActionBar?.hide();
 
 
         // if data is loaded -> goto main Screen
-        //val intent = Intent(this, MainActivity::class.java);
-        //startActivity(intent);
-        //finish();
+        val intent = Intent(this, MainActivity::class.java);
+        startActivity(intent);
+        finish();
     }
 }
