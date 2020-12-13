@@ -17,6 +17,7 @@ var transactionsizeChild = mutableListOf<Double>();
 
 data class Child(
     var idChild: String,
-    var nameChild: String
+    var nameChild: String,
+    var balanceChild: Double
 
 )

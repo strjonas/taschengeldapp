@@ -5,13 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CellClickListenerNew {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        val recyclerView: RecyclerView = findViewById(R.id.recViewMain)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = MainAdapter(this, fetchList(), this)
 
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -33,5 +39,17 @@ class MainActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
+    }
+    override fun onCellClickListenerNew(data: Child,position: Int) {
+        Toast.makeText(this,"${data.balanceChild} ${data.idChild} ${data.nameChild}", Toast.LENGTH_LONG).show()
+    }
+    fun fetchList(): ArrayList<Child> {
+        val list = arrayListOf<Child>()
+        for (i in 1..balancesChilds.size) {
+            val child = Child(idsChilds[i-1], namesChilds[i-1],balancesChilds[i-1])
+            list.add(child)
+        }
+
+        return list
     }
 }
