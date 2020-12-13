@@ -41,7 +41,15 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
         }
     }
     override fun onCellClickListenerNew(data: Child,position: Int) {
-        Toast.makeText(this,"${data.balanceChild} ${data.idChild} ${data.nameChild}", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ChildAccountAcitivity::class.java)
+        intent.putExtra("position",position)
+        intent.putExtra("balance",data.balanceChild)
+        intent.putExtra("id",data.idChild)
+        intent.putExtra("name",data.nameChild)
+
+        startActivity(intent)
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
     fun fetchList(): ArrayList<Child> {
         val list = arrayListOf<Child>()
