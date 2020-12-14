@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), CellClickListenerNew {
@@ -15,10 +16,18 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.title = "Overview"
+
         val recyclerView: RecyclerView = findViewById(R.id.recViewMain)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = MainAdapter(this, fetchList(), this)
 
+        findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener { view ->
+
+            Toast.makeText(this,"works!",Toast.LENGTH_LONG).show()
+
+
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -60,4 +69,6 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
 
         return list
     }
+
+
 }

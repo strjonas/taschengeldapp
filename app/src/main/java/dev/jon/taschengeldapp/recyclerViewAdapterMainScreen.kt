@@ -1,6 +1,7 @@
 package dev.jon.taschengeldapp
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.ColorSpace
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,12 @@ class MainAdapter(private val context: Context,
         val data = list[position]
         holder.name.text = data.nameChild
         holder.balance.text = data.balanceChild.toString();
+
+        if(data.balanceChild >= 0){
+            holder.balance.setTextColor(Color.parseColor("#0080FF"))
+        }else{
+            holder.balance.setTextColor(Color.parseColor("#FF4D4D"))
+        }
 
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListenerNew(data,position)

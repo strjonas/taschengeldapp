@@ -13,7 +13,7 @@ class splashscreen : AppCompatActivity() {
         supportActionBar?.hide();
 
         namesChilds.add("alex")
-        namesChilds.add("lariss")
+        namesChilds.add("larissa")
         idsChilds.add("1234")
         idsChilds.add("1235")
         balancesChilds.add(23.00)
