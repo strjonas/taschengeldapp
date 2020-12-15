@@ -2,13 +2,13 @@ package dev.jon.taschengeldapp
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.ColorSpace
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+
 
 class MainAdapter(private val context: Context,
                   private val list: ArrayList<Child>,
@@ -37,6 +37,7 @@ class MainAdapter(private val context: Context,
         }
         notifyDataSetChanged()
     }
+
     private fun pay(id:String, position: Int){
         // when database is connected where id == id, and take money from there and update the balance
         val money = 25.0
@@ -65,6 +66,7 @@ class MainAdapter(private val context: Context,
         }
     }
 }
+
 interface CellClickListenerNew {
     fun onCellClickListenerNew(data: Child,position: Int)
 }

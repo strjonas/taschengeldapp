@@ -8,6 +8,10 @@ var balancesChilds = mutableListOf<Double>();
 var idsChilds = mutableListOf<String>();
 var namesChilds = mutableListOf<String>();
 
+var datesChild = mutableListOf<String>();
+var infosChild = mutableListOf<String>();
+var transactionsizeChild = mutableListOf<Double>();
+
 
 
 data class Child(
