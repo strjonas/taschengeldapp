@@ -3,10 +3,12 @@ package dev.jon.taschengeldapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_child_account_acitivity.*
 import kotlinx.android.synthetic.main.activity_settings.*
 
-class ChildAccountAcitivity : AppCompatActivity() {
+class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
 
     var datesChild = mutableListOf<String>();
     var infosChild = mutableListOf<String>();
@@ -16,6 +18,12 @@ class ChildAccountAcitivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_child_account_acitivity)
         setSupportActionBar(child_account_toolbar)
+
+        loadData()
+
+        val recyclerView: RecyclerView = findViewById(R.id.recViewChildAccount)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = ChildAdapter(this, fetchListnew(), this)
 
         val name = intent.getStringExtra("name")
         val id = intent.getStringExtra("id")
@@ -33,7 +41,19 @@ class ChildAccountAcitivity : AppCompatActivity() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+    override fun onCellClickListener(data: AccountChild,position: Int) {
 
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+    fun fetchListnew(): ArrayList<AccountChild> {
+        val list = arrayListOf<AccountChild>()
+        for (i in 1..infosChild.size) {
+            val child = AccountChild(infosChild[i-1], datesChild[i-1], transactionsizeChild[i-1])
+            list.add(child)
+        }
+
+        return list
+    }
 
 
     private fun loadData(){

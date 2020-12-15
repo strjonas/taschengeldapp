@@ -16,3 +16,9 @@ data class Child(
     var balanceChild: Double
 
 )
+
+data class AccountChild(
+        var info:String,
+        var date:String,
+        var amount:Double
+)
