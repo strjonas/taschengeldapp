@@ -24,8 +24,9 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
 
         findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener { view ->
 
-            Toast.makeText(this,"works!",Toast.LENGTH_LONG).show()
-
+            val intent = Intent(this, addChild::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out)
 
         }
     }

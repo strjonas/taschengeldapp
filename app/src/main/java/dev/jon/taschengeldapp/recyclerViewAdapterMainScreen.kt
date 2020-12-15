@@ -29,6 +29,10 @@ class MainAdapter(private val context: Context,
         return list.count()
     }
 
+    fun update(){
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
         holder.name.text = data.nameChild

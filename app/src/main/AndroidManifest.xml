@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Taschengeldapp">
-        <activity android:name=".ChildAccountAcitivity"  android:theme="@style/noaction"/>
+        <activity android:name=".addChild" android:theme="@style/noaction" />
+        <activity
+            android:name=".ChildAccountAcitivity"
+            android:theme="@style/noaction" />
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/noaction"/>
+            android:theme="@style/noaction" />
         <activity android:name=".MainActivity" />
         <activity android:name=".splashscreen">
             <intent-filter>
