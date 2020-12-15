@@ -63,6 +63,10 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
             transactionsizeChild.add(0,editnum.text.toString().toDouble())
             dialog.dismiss()
             ChildAdapter(this,fetchListnew(),this).update()
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
 
         }
     }
@@ -85,16 +89,6 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
 
 
     private fun loadData(){
-
-        datesChild.add(0,"12.42.21")
-        datesChild.add(0,"38.23.41")
-        datesChild.add(0,"22.10.32")
-        infosChild.add(0,"pocket money")
-        infosChild.add(0,"new clock")
-        infosChild.add(0,"pocket money")
-        transactionsizeChild.add(0,25.0)
-        transactionsizeChild.add(0,-29.5)
-        transactionsizeChild.add(0,25.0)
 
         // TODO FIREBASE LOAD IN LISTS ETC                                              ^
         // Make sure to always place the new one in the first spot of the list like so: |

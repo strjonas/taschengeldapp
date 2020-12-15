@@ -17,12 +17,13 @@ class splashscreen : AppCompatActivity() {
 
         // if data is loaded -> goto main Screen
         val intent = Intent(this, MainActivity::class.java);
+
         startActivity(intent);
         finish();
     }
 
-    private fun loadData(){
 
+    private fun loadData(){
         // TODO (database)
         namesChilds.add("alex")
         namesChilds.add("larissa")
@@ -30,6 +31,16 @@ class splashscreen : AppCompatActivity() {
         idsChilds.add("1235")
         balancesChilds.add(23.00)
         balancesChilds.add(15.00)
+        // TODO (make following in childaccountactivity and get them from database
+        datesChild.add(0,"12.42.21")
+        datesChild.add(0,"38.23.41")
+        datesChild.add(0,"22.10.32")
+        infosChild.add(0,"pocket money")
+        infosChild.add(0,"new clock")
+        infosChild.add(0,"pocket money")
+        transactionsizeChild.add(0,25.0)
+        transactionsizeChild.add(0,-29.5)
+        transactionsizeChild.add(0,25.0)
 
     }
     private fun updateBalance(){
