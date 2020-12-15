@@ -9,19 +9,24 @@
         android:id="@+id/childaccount_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="10dp"
         android:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/childaccount_info"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/space4" />
 
     <TextView
         android:id="@+id/childaccount_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="1dp"
+        android:textSize="18sp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/space3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/childaccount_date" />
 
@@ -29,9 +34,39 @@
         android:id="@+id/childaccount_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="59dp"
+        android:layout_marginEnd="10dp"
         android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/childaccount_info"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/childaccount_info" />
+
+    <Space
+        android:id="@+id/space3"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childaccount_info" />
+
+    <Space
+        android:id="@+id/space4"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/space3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

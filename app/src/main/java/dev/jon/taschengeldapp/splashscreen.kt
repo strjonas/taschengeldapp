@@ -30,6 +30,7 @@ class splashscreen : AppCompatActivity() {
         idsChilds.add("1235")
         balancesChilds.add(23.00)
         balancesChilds.add(15.00)
+
     }
     private fun updateBalance(){
         for (id in idsChilds){

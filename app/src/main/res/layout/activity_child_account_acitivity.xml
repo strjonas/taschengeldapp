@@ -70,4 +70,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        app:fab_addButtonColorNormal="@color/accent"
+        app:fab_labelStyle="@style/custom_floating_buttons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="#0080FF"
+            app:fab_icon="@drawable/ic_baseline_radio_button_unchecked_48"
+            app:fab_title="change child's settings"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="#0080FF"
+            app:fab_icon="@drawable/ic_baseline_radio_button_unchecked_48"
+            app:fab_title="pay pocket money"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/third"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="#0080FF"
+            app:fab_icon="@drawable/ic_baseline_radio_button_unchecked_48"
+            app:fab_title="add different amount"/>
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

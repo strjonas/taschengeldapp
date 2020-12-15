@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
 
             val intent = Intent(this, addChild::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out)
+            //overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out)
 
         }
     }
