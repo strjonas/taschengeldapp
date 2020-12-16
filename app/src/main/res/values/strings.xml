@@ -13,4 +13,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="settings">Settings</string>
     <string name="back">Back</string>
+    <string-array name="spinner_currency">
+        <item>€</item>
+        <item>£</item>
+        <item>$</item>
+    </string-array>
 </resources>

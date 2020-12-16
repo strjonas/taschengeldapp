@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.jon.taschengeldapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Taschengeldapp">
-        <activity android:name=".addChild" android:theme="@style/noaction" />
+        <activity android:name=".Signup" android:theme="@style/noaction"/>
+        <activity android:name=".Login" android:theme="@style/noaction"/>
+        <activity
+            android:name=".addChild"
+            android:theme="@style/noaction" />
         <activity
             android:name=".ChildAccountAcitivity"
             android:theme="@style/noaction" />

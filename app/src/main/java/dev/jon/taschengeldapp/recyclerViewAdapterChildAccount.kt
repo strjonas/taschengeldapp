@@ -44,7 +44,7 @@ class ChildAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHoldernew, position: Int) {
         val data = list[position]
         holder.info.text = data.info
-        holder.amount.text = data.amount.toString()
+        holder.amount.text = data.amount.toString() + " " + currencyUser
         holder.date.text = data.date
 
         if(data.amount >= 0){

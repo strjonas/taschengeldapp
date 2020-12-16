@@ -48,7 +48,7 @@ class MainAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
         holder.name.text = data.nameChild
-        holder.balance.text = data.balanceChild.toString();
+        holder.balance.text = data.balanceChild.toString()  + " " + currencyUser
 
         if(data.balanceChild >= 0){
             holder.balance.setTextColor(Color.parseColor("#0080FF"))
