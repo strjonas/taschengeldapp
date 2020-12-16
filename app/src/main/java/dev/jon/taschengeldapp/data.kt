@@ -12,6 +12,7 @@ var datesChild = mutableListOf<String>();
 var infosChild = mutableListOf<String>();
 var transactionsizeChild = mutableListOf<Double>();
 
+var uidd= ""
 
 
 data class Child(

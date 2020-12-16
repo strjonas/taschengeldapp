@@ -4,23 +4,34 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.lang.Thread.sleep
 
 class splashscreen : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
         supportActionBar?.hide();
+        auth = Firebase.auth
+        val isAuth = checkauth()
+        if(isAuth){
+            loadData()
+            updateBalance()
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish();
+        }else{
+            val intent = Intent(this, Signup::class.java);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish();
+        }
 
-        loadData()
-        updateBalance()
 
-        // if data is loaded -> goto main Screen
-        val intent = Intent(this, Signup::class.java);
-
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-        finish();
     }
 
 
@@ -53,5 +64,9 @@ class splashscreen : AppCompatActivity() {
     private fun updateChildsBalance(){
         //calculate back and give pending money
         //last payment = today
+    }
+    private fun checkauth(): Boolean{
+        val currentUser = auth.currentUser
+        return currentUser != null
     }
 }
