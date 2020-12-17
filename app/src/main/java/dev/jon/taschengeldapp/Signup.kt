@@ -85,6 +85,7 @@ class Signup : AppCompatActivity() {
                         "name" to name,
                         "email" to useremail,
                         "currency" to currency,
+                            "childs" to childs,
                         "userid" to userId
                     )
                     db.collection("users").document(userId)

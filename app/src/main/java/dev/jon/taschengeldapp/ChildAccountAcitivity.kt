@@ -8,19 +8,22 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_child_account_acitivity.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.add_payment_popup.*
 import java.util.*
 
 class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
-
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_child_account_acitivity)
         setSupportActionBar(child_account_toolbar)
-
-        loadData()
 
         val recyclerView: RecyclerView = findViewById(R.id.recViewChildAccount)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -34,17 +37,21 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
 
         supportActionBar?.title = "     $name' s account";
         backbutton_childaccount.setOnClickListener{
+            transactionsizeChild.clear()
+            infosChild.clear()
+            datesChild.clear()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         second.setOnClickListener{
-            createDialog()
+            createDialog(id!!)
+
             floating_action_menu.collapse()
         }
 
     }
-    fun createDialog(){
+    fun createDialog(id: String){
         val dibu = AlertDialog.Builder(this)
         val popup = layoutInflater.inflate(R.layout.add_payment_popup, null)
         dibu.setView(popup)
@@ -61,17 +68,15 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
             datesChild.add(0,getDate())
             infosChild.add(0,edittext.text.toString())
             transactionsizeChild.add(0,editnum.text.toString().toDouble())
+            uploadData(id)
             dialog.dismiss()
-            ChildAdapter(this,fetchListnew(),this).update()
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
-
         }
     }
     override fun onBackPressed() {
         super.onBackPressed();
+        transactionsizeChild.clear()
+        infosChild.clear()
+        datesChild.clear()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
     override fun onCellClickListener(data: AccountChild,position: Int) {
@@ -88,10 +93,20 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
     }
 
 
-    private fun loadData(){
+    private fun uploadData(id:String){
+        val db = Firebase.firestore
+        val quer = db.collection("users").document(uidd).collection("childs").document(id)
+        quer.update("infos", infosChild)
+        quer.update("dates", datesChild)
+        quer.update("transactions", transactionsizeChild)
+                .addOnSuccessListener {
+                    ChildAdapter(this,fetchListnew(),this).update()
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                }
 
-        // TODO FIREBASE LOAD IN LISTS ETC                                              ^
-        // Make sure to always place the new one in the first spot of the list like so: |
     }
 
     private fun updateDataOfChild(){

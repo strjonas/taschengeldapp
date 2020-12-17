@@ -25,7 +25,7 @@
             android:name=".SettingsActivity"
             android:theme="@style/noaction" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".splashscreen">
+        <activity android:name=".splashscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

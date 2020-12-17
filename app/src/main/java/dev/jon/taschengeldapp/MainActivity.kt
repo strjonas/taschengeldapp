@@ -10,8 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), CellClickListenerNew {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,9 +62,25 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
         intent.putExtra("id",data.idChild)
         intent.putExtra("name",data.nameChild)
 
-        startActivity(intent)
+       loadChildLists(data.idChild, intent)
+    }
+    private fun loadChildLists(id:String, intent: Intent){
+        val db = Firebase.firestore
 
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        db.collection("users").document(uidd).collection("childs").document(id)
+                .get()
+                .addOnSuccessListener {
+                    datesChild = it.get("dates") as MutableList<String>
+                    infosChild = it.get("infos") as MutableList<String>
+                    transactionsizeChild = it.get("transactions") as MutableList<Double>
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                }
+                .addOnFailureListener{
+                    Snackbar.make(add_child,"Couldn't fetch data", Snackbar.LENGTH_LONG).show()
+                    return@addOnFailureListener
+                }
+
     }
     fun fetchList(): ArrayList<Child> {
         val list = arrayListOf<Child>()

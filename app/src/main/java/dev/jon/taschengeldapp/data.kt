@@ -2,6 +2,7 @@ package dev.jon.taschengeldapp
 
 var nameUser = "";
 var currencyUser = "";
+var childs = mutableListOf<String>()
 // money is given at the first of the month/week at cet time
 
 var balancesChilds = mutableListOf<Double>();

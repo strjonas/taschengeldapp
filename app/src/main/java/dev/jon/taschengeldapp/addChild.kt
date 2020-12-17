@@ -7,16 +7,22 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_add_child.*
 import kotlinx.android.synthetic.main.activity_settings.*
 
 
 class addChild : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_child)
         setSupportActionBar(addchild_toolbar)
         val nums = initialisePicker()
+        auth = Firebase.auth
 
         button_addchild.setOnClickListener{
 
@@ -50,19 +56,44 @@ class addChild : AppCompatActivity() {
 
     }
     private fun updateData(name:String, setting:String, money:String){
+        val db =Firebase.firestore
 
-        val id = "243242" // TODO ID MAKING
-
+        val id = System.currentTimeMillis().toString()
         balancesChilds.add(money.toDouble())
         idsChilds.add(id)
         namesChilds.add(name)
-        MainAdapter(MainActivity(), MainActivity().fetchList(), MainActivity()).update()
-        MainActivity().finish()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent);
-        finish()
 
-        // TODO MAKE KID IN DATABASE ADD WITH ID, SETTING ...
+        childs.add(id)
+
+        val date = ChildAccountAcitivity().getDate()
+
+        val child = hashMapOf(
+                "balance" to 0.0,
+                "moneyper" to money.toDouble(),
+                "id" to id,
+                "setting" to setting,
+                "name" to name,
+                "lastpayment" to date,
+                "dates" to datesChild,
+                "infos" to infosChild,
+                "transactions" to transactionsizeChild
+
+        )
+        db.collection("users").document(uidd).collection("childs").document(id)
+                .set(child)
+                .addOnSuccessListener {
+                    db.collection("users").document(uidd)
+                            .update("childs",childs)
+                            .addOnSuccessListener {
+                                MainAdapter(MainActivity(), MainActivity().fetchList(), MainActivity()).update()
+                                MainActivity().finish()
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent);
+                                overridePendingTransition(0,0)
+                                finish()
+
+                            }
+                }
 
     }
     private fun checkdata(): Boolean{
@@ -81,7 +112,7 @@ class addChild : AppCompatActivity() {
         return true
     }
     private fun initialisePicker(): Array<String>{
-        var nums: Array<String> = arrayOf(
+        val nums: Array<String> = arrayOf(
             "0.5","1.0",  "1.5","2.0",  "2.5", "3.0",  "3.5", "4.0", "4.5", "5.0",  "5.5",
             "6.0",  "6.5", "7.0",  "7.5", "8.0",  "8.5","9.0",  "9.5",   "10.0",   "10.5",
             "11.0", "11.5","12.0","12.5","13.0","13.5", "14.0","14.5","15.0","15.5","16.0",
