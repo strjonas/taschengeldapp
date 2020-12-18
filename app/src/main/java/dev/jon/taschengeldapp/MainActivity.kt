@@ -1,4 +1,4 @@
-package dev.jon.taschengeldapp
+ package dev.jon.taschengeldapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
         findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener { view ->
 
             val intent = Intent(this, addChild::class.java)
+            intent.putExtra("id","null")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 

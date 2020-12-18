@@ -18,6 +18,7 @@ class splashscreen : AppCompatActivity() {
         setContentView(R.layout.activity_splashscreen)
         supportActionBar?.hide();
         auth = Firebase.auth
+
         val isAuth = checkauth()
         if(isAuth){
             loadData()

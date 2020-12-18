@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class MainAdapter(private val context: Context,
@@ -39,10 +41,38 @@ class MainAdapter(private val context: Context,
     }
 
     private fun pay(id:String, position: Int){
-        // when database is connected where id == id, and take money from there and update the balance
-        val money = 25.0
-        balancesChilds[position] -= money
-        update()
+        var infos:MutableList<String>
+        var dates:MutableList<String>
+        var transactions:MutableList<Double>
+        var money:Double
+        val db = Firebase.firestore
+        val conn =db.collection("users").document(uidd).collection("childs").document(id)
+        conn.get()
+                .addOnSuccessListener {
+                    infos = it.get("infos") as MutableList<String>
+                    dates = it.get("dates") as MutableList<String>
+                    transactions = it.get("transactions") as MutableList<Double>
+
+                    money = it.get("moneyper").toString().toDouble()
+
+                    balancesChilds[position] -= money
+
+                    infos.add(0,"Pocket money given!")
+                    dates.add(0,ChildAccountAcitivity().getDate())
+                    transactions.add(0,-money)
+
+                    conn.update("infos", infos)
+                    conn.update("transactions", transactions)
+                    conn.update("dates", dates)
+
+                    var balance = 0.0
+                    for(i in transactions){
+                        balance += i
+                    }
+                    conn.update("balance", balance)
+                    update()
+                }
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

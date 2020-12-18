@@ -13,6 +13,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_add_child.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.lang.Exception
 
 
 class addChild : AppCompatActivity() {
@@ -24,8 +25,11 @@ class addChild : AppCompatActivity() {
         val nums = initialisePicker()
         auth = Firebase.auth
 
-        button_addchild.setOnClickListener{
+        if(intent.getStringExtra("id") != "null"){
+            editTextTextPersonName.setText(intent.getStringExtra("name"))
+        }
 
+        button_addchild.setOnClickListener{
             getData(nums)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
@@ -52,14 +56,41 @@ class addChild : AppCompatActivity() {
             "wek"
         }
         val money = nums[spinner2.value]
-        updateData(name,setting,money)
+        if(intent.getStringExtra("id") == "null"){
+            uploadData(name,setting,money)
+        }else{
+            updateData(name,setting,money)
+        }
+
 
     }
-    private fun updateData(name:String, setting:String, money:String){
+    fun updateData(name: String,setting: String,money: String){
+        val db = Firebase.firestore
+        val id = intent.getStringExtra("id")
+        val conn = db.collection("users").document(uidd).collection("childs").document(id!!)
+        conn.update("name",name)
+        conn.update("setting",setting)
+        conn.update("moneyper",money.toDouble())
+                .addOnSuccessListener {
+                    val intent = Intent(this,ChildAccountAcitivity::class.java)
+                    intent.putExtra("id", id)
+                    intent.putExtra("name",name)
+                    try{
+                        Snackbar.make(constraintlayout_add_child,"Successfully changed data!", Snackbar.LENGTH_LONG).show()
+                    }catch (e:Exception){
+
+                    }
+                    startActivity(intent)
+                    overridePendingTransition(0,0)
+                    finish()
+                    overridePendingTransition(0,0)
+                }
+    }
+    private fun uploadData(name:String, setting:String, money:String){
         val db =Firebase.firestore
 
         val id = System.currentTimeMillis().toString()
-        balancesChilds.add(money.toDouble())
+        balancesChilds.add(0.0)
         idsChilds.add(id)
         namesChilds.add(name)
 

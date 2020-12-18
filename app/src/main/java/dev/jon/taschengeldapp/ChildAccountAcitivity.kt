@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -15,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_child_account_acitivity.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.add_payment_popup.*
+import java.lang.Exception
 import java.util.*
 
 class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
@@ -31,9 +33,11 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
 
         val name = intent.getStringExtra("name")
         val id = intent.getStringExtra("id")
-        val balance = intent.getDoubleExtra("balance",99999.0)
-
-        balance_inchildactivity.text = "Balance: " + balance.toString()
+        var balance = 0.0
+        for(i in transactionsizeChild){
+            balance += i
+        }
+        balance_inchildactivity.text = balance.toString() + " $currencyUser"
 
         supportActionBar?.title = "     $name' s account";
         backbutton_childaccount.setOnClickListener{
@@ -43,6 +47,13 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        first.setOnClickListener{
+            val intent = Intent(this, addChild::class.java)
+            intent.putExtra("id",id)
+            intent.putExtra("name",name)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         second.setOnClickListener{
             createDialog(id!!)
@@ -65,9 +76,29 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
             dialog.dismiss()
         }
         addbutton.setOnClickListener{
+            if(edittext.text.toString().isEmpty() && editnum.text.toString().isEmpty())
+            {
+                Snackbar.make(child_account_lay, "Please enter data!", Snackbar.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             datesChild.add(0,getDate())
             infosChild.add(0,edittext.text.toString())
             transactionsizeChild.add(0,editnum.text.toString().toDouble())
+            var balance = 0.0
+            for(i in transactionsizeChild){
+                balance += i
+            }
+            balance_inchildactivity.text = balance.toString() + " $currencyUser"
+            val position = intent.getIntExtra("position", 999999999)
+            try {
+                balancesChilds[position] = balance
+                val db = Firebase.firestore
+                val quer = db.collection("users").document(uidd).collection("childs").document(id)
+                quer.update("balance", balance)
+            }catch (e: Exception){
+
+            }
+
             uploadData(id)
             dialog.dismiss()
         }
@@ -86,7 +117,7 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
     fun fetchListnew(): ArrayList<AccountChild> {
         val list = arrayListOf<AccountChild>()
         for (i in 1..infosChild.size) {
-            val child = AccountChild(infosChild[i-1], datesChild[i-1], transactionsizeChild[i-1])
+            val child: AccountChild = AccountChild(infosChild[i-1], datesChild[i-1], transactionsizeChild[i-1])
             list.add(child)
         }
         return list
