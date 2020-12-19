@@ -106,7 +106,7 @@ class addChild : AppCompatActivity() {
 
         childs.add(id)
 
-        val date = ChildAccountAcitivity().getDate()
+        val date = splashscreen().getPayDate()
         val d = mutableListOf<String>();
         val i = mutableListOf<String>();
         val t = mutableListOf<Double>();
