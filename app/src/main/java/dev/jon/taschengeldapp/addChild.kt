@@ -1,6 +1,7 @@
 package dev.jon.taschengeldapp
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.Spinner
@@ -27,6 +28,15 @@ class addChild : AppCompatActivity() {
 
         if(intent.getStringExtra("id") != "null"){
             editTextTextPersonName.setText(intent.getStringExtra("name"))
+            val money =  intent.getDoubleExtra("money",1.0).toString()
+            var zahler = 0
+            for(x in nums){
+                if(x == money){
+                    spinner2.value = zahler
+                }
+                zahler+=1
+            }
+
         }
 
         button_addchild.setOnClickListener{
@@ -97,7 +107,9 @@ class addChild : AppCompatActivity() {
         childs.add(id)
 
         val date = ChildAccountAcitivity().getDate()
-
+        val d = mutableListOf<String>();
+        val i = mutableListOf<String>();
+        val t = mutableListOf<Double>();
         val child = hashMapOf(
                 "balance" to 0.0,
                 "moneyper" to money.toDouble(),
@@ -105,11 +117,11 @@ class addChild : AppCompatActivity() {
                 "setting" to setting,
                 "name" to name,
                 "lastpayment" to date,
-                "dates" to datesChild,
-                "infos" to infosChild,
-                "transactions" to transactionsizeChild
-
+                "dates" to d,
+                "infos" to i,
+                "transactions" to t
         )
+
         db.collection("users").document(uidd).collection("childs").document(id)
                 .set(child)
                 .addOnSuccessListener {

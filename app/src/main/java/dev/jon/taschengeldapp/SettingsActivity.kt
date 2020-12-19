@@ -26,8 +26,6 @@ class SettingsActivity : AppCompatActivity() {
             logout()
         }
 
-        // TODO add spinner with currency??
-
     }
 
     override fun onBackPressed() {

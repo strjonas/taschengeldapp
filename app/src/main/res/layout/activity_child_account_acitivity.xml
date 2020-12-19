@@ -64,12 +64,23 @@
                 android:id="@+id/balance_inchildactivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/child_account_toolbar"
+                app:layout_constraintEnd_toStartOf="@+id/first"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/first"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_baseline_settings_24"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,34 +95,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/floating_action_menu"
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/second"
         android:layout_width="wrap_content"
+        app:fab_icon="@drawable/ic_baseline_add_48"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        app:fab_addButtonColorNormal="@color/accent"
-        app:fab_labelStyle="@style/custom_floating_buttons"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="#0080FF"
-            app:fab_icon="@drawable/ic_baseline_radio_button_unchecked_48"
-            app:fab_title="Change child's settings" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="#0080FF"
-            app:fab_icon="@drawable/ic_baseline_radio_button_unchecked_48"
-            app:fab_title="Perform transaction" />
-
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

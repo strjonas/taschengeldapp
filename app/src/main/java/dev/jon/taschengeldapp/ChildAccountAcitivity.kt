@@ -39,7 +39,7 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
         }
         balance_inchildactivity.text = balance.toString() + " $currencyUser"
 
-        supportActionBar?.title = "     $name' s account";
+        supportActionBar?.title = "     $name";
         backbutton_childaccount.setOnClickListener{
             transactionsizeChild.clear()
             infosChild.clear()
@@ -49,16 +49,23 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         first.setOnClickListener{
-            val intent = Intent(this, addChild::class.java)
-            intent.putExtra("id",id)
-            intent.putExtra("name",name)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            var moneyper:Double
+            val db = Firebase.firestore
+            db.collection("users").document(uidd).collection("childs").document(id!!)
+                    .get()
+                    .addOnSuccessListener {
+                        moneyper = it.get("moneyper") as Double
+                        val intent = Intent(this, addChild::class.java)
+                        intent.putExtra("id",id)
+                        intent.putExtra("name",name)
+                        intent.putExtra("money", moneyper)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
+
         }
         second.setOnClickListener{
             createDialog(id!!)
-
-            floating_action_menu.collapse()
         }
 
     }
@@ -138,16 +145,6 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
                     overridePendingTransition(0, 0);
                 }
 
-    }
-
-    private fun updateDataOfChild(){
-        var settingChild = "";
-        var moneyChild = 0.0;
-        var nameChild = "";
-
-        // Create pop up, fill in the data, and let it change, save it
-
-        // TODO UPDATE IN DB
     }
     fun getDate(): String{
         val calendar= Calendar.getInstance(TimeZone.getDefault())

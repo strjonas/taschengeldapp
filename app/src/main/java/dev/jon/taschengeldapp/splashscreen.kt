@@ -10,6 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.lang.Thread.sleep
+import java.util.*
 
 class splashscreen : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -60,19 +61,6 @@ class splashscreen : AppCompatActivity() {
                             }
                 }
 
-        // TODO (make following in childaccountactivity and get them from database
-        /*datesChild.add(0,"12.42.21")
-        datesChild.add(0,"38.23.41")
-        datesChild.add(0,"22.10.32")
-        infosChild.add(0,"pocket money")
-        infosChild.add(0,"new clock")
-        infosChild.add(0,"pocket money")
-        transactionsizeChild.add(0,25.0)
-        transactionsizeChild.add(0,-29.5)
-        transactionsizeChild.add(0,25.0)*/
-
-        // TODO when childs are loaded and there is no child, display tutorial, background add child blabla
-
     }
     private fun updateBalance(){
         for (id in idsChilds){
@@ -81,8 +69,42 @@ class splashscreen : AppCompatActivity() {
         }
     }
     private fun updateChildsBalance(){
-        //calculate back and give pending money
-        //last payment = today
+        val monthly = true
+        val pocketMoney = 1
+        if(monthly){
+            var lastpayment = "353/11/2019"
+            val dateArray= lastpayment.split("/")
+            val lastmonth = dateArray[1]
+            val lastyear = dateArray[2]
+            val calender = Calendar.getInstance(TimeZone.getDefault())
+            val day= calender.get(Calendar.DAY_OF_YEAR)
+            val month = calender.get(Calendar.MONTH)+1
+            val year = calender.get(Calendar.YEAR)
+            val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
+            val paySum = (lastmonth.toInt() - month + (lastyear.toInt()  - year)*12 )* pocketMoney
+
+            val info = "Taschengeld Nachzahlung: " + paySum * -1 + "$, " + "from last payment till today"
+            val date = "$dayOfMonth.$month.$year"
+            val transaction = paySum*-1
+
+
+        }else{
+            var lastpayment = "323/11/2020"
+            val dateArray= lastpayment.split("/")
+            val lastday = dateArray[0]
+            val lastyear = dateArray[2]
+            val calender = Calendar.getInstance(TimeZone.getDefault())
+            val day= calender.get(Calendar.DAY_OF_YEAR)
+            val month = calender.get(Calendar.MONTH)+1
+            val year = calender.get(Calendar.YEAR)
+            val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
+            val paySum = (lastday.toInt() - day + (lastyear.toInt()  - year)*365 )* pocketMoney
+
+            val info = "Taschengeld Nachzahlung: " + paySum * -1 + "$, " + "from last payment till today"
+            val date = "$dayOfMonth.$month.$year"
+            val transaction = paySum*-1
+
+        }
     }
     private fun checkauth(): Boolean{
         val currentUser = auth.currentUser
