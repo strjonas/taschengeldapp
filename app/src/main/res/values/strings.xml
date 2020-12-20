@@ -35,4 +35,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="already_have_one">Already have one?</string>
     <string name="money_given">Pocket money paid!</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="cancel">Cancel</string>
 </resources>

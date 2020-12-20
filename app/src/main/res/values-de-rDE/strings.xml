@@ -8,10 +8,10 @@
     <string name="name">Name</string>
     <string name="pocket_money">Taschengeld</string>
     <string name="setting">Konfiguration</string>
-    <string name="add">Hinzufuegen</string>
+    <string name="add">Okay</string>
     <string name="weekly_pay">Woechentlich</string>
     <string name="monthly_pay">Monatlich</string>
-    <string name="pay">Auszahlen</string>
+    <string name="pay">Zahlen</string>
     <string name="log_out">Ausloggen</string>
     <string name="sign_up">Regestrieren</string>
     <string name="password">Passwort</string>
@@ -20,4 +20,7 @@
     <string name="forgot_password">Password vergessen?</string>
     <string name="already_have_one">Du hast schon ein Konto?</string>
     <string name="money_given">Taschengeld ausgezahlt!</string>
+    <string name="description">Beschreibung</string>
+    <string name="amount">Betrag</string>
+    <string name="cancel">zurueck</string>
 </resources>

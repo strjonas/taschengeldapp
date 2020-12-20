@@ -122,7 +122,7 @@ class splashscreen : AppCompatActivity() {
                         val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
                         val paySum = (lastday.toInt() - day + (lastyear.toInt() - year) * 365) * pocketMoney
 
-                        info = "Taschengeld Zahlung"
+                        info = resources.getString(R.string.money_given)
                         date = "$dayOfMonth.$month.$year"
                         transaction = paySum * -1
                     }

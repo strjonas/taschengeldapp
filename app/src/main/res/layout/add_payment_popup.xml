@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
-        android:text="Description"
+        android:text="@string/description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
-        android:text="Amount"
+        android:text="@string/amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
@@ -63,7 +63,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="25dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
@@ -75,7 +75,7 @@
         android:layout_marginStart="23dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
-        android:text="Add"
+        android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_cancel_popup"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
