@@ -22,11 +22,11 @@
 
         <Button
             android:id="@+id/pay_pocketmoney_main"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginEnd="25dp"
-            android:text="@string/pay"
             android:clickable="false"
+            android:text="@string/pay"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/child_balance_text"
             app:layout_constraintTop_toTopOf="parent" />

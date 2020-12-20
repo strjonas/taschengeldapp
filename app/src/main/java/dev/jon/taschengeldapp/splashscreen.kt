@@ -3,13 +3,16 @@ package dev.jon.taschengeldapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_splashscreen.*
 import java.lang.Exception
 import java.lang.Thread.sleep
 import java.util.*
@@ -21,8 +24,15 @@ class splashscreen : AppCompatActivity() {
         setContentView(R.layout.activity_splashscreen)
         supportActionBar?.hide();
         auth = Firebase.auth
-
         balancesChilds.clear()
+
+        datesChild.clear()
+        infosChild.clear()
+        transactionsizeChild.clear()
+        balancesChilds.clear()
+        namesChilds.clear()
+        idsChilds.clear()
+
         val isAuth = checkauth()
         if (isAuth) {
             loadData()
@@ -35,6 +45,13 @@ class splashscreen : AppCompatActivity() {
             finish();
         }
 
+        Handler().postDelayed(
+            {
+                Snackbar.make(splash_lay, "Seems like we are having trouble connecting you to our Database!\n Are you connected to the Internet?",10000).show()
+
+            },5000
+        )
+
 
     }
 
@@ -42,22 +59,29 @@ class splashscreen : AppCompatActivity() {
         val db = Firebase.firestore
         val id = auth.currentUser?.uid!!
         uidd = id
-
         db.collection("users").document(id).get()
                 .addOnSuccessListener {
                     currencyUser = it.get("currency").toString()
                     nameUser = it.get("name").toString()
                     childs = it.get("childs") as MutableList<String>
-                    db.collection("users").document(id).collection("childs")
-                            .get()
-                            .addOnSuccessListener {
-                                for (document in it) {
-                                    namesChilds.add(0,document.get("name").toString())
-                                    idsChilds.add(0,document.get("id").toString())
+                    if(childs.size > 0){
+                        db.collection("users").document(id).collection("childs")
+                                .get()
+                                .addOnSuccessListener {
+                                    for (document in it) {
+                                        namesChilds.add(0,document.get("name").toString())
+                                        idsChilds.add(0,document.get("id").toString())
 
+                                    }
+                                    updateBalance()
                                 }
-                                updateBalance()
-                            }
+                    }else{
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        finish();
+                    }
+
                 }
 
     }
@@ -105,7 +129,7 @@ class splashscreen : AppCompatActivity() {
                         val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
                         val paySum = (lastmonth.toInt() - month + (lastyear.toInt() - year) * 12) * pocketMoney
 
-                        info = "Taschengeld Zahlung"
+                        info = resources.getString(R.string.money_given)
                         date = "$dayOfMonth.$month.$year"
                         transaction = paySum * -1
 

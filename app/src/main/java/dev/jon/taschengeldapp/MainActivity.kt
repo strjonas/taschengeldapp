@@ -1,10 +1,14 @@
  package dev.jon.taschengeldapp
 
 import android.content.Intent
-import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +19,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_add_child.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.AccessController.getContext
+import java.io.ByteArrayOutputStream
+
 
  class MainActivity : AppCompatActivity(), CellClickListenerNew {
     private lateinit var auth: FirebaseAuth
@@ -26,12 +31,28 @@ import java.security.AccessController.getContext
 
 
         supportActionBar?.title = "Overview"
+
         try {
             val recyclerView: RecyclerView = findViewById(R.id.recViewMain)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = MainAdapter(this, fetchList(), this)
         }catch (e: Exception){
             Snackbar.make(constraintlayout_add_child, "Something went wrong, please restart the app! $e", Snackbar.LENGTH_LONG).show()
+        }
+        if(idsChilds.size == 0 ){
+
+            imageView2.visibility = View.VISIBLE
+            textView.visibility = View.VISIBLE
+            if(!boo){
+                boo = true
+                val intent = Intent(this, splashscreen::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }else{
+            view3.visibility = View.INVISIBLE
+            imageView2.visibility = View.INVISIBLE
+            textView.visibility = View.INVISIBLE
         }
 
 
@@ -85,6 +106,7 @@ import java.security.AccessController.getContext
 
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    finish()
                 }
                 .addOnFailureListener{
                     Snackbar.make(add_child, "Couldn't fetch data", Snackbar.LENGTH_LONG).show()

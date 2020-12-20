@@ -44,9 +44,12 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
             transactionsizeChild.clear()
             infosChild.clear()
             datesChild.clear()
+            val main = MainActivity()
+            MainAdapter(main,main.fetchList(),main).update()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            finish()
         }
         first.setOnClickListener{
             var moneyper:Double
@@ -118,7 +121,10 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
         transactionsizeChild.clear()
         infosChild.clear()
         datesChild.clear()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish()
     }
     override fun onCellClickListener(data: AccountChild,position: Int) {
 

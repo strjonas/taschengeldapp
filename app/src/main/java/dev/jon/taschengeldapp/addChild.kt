@@ -137,8 +137,8 @@ class addChild : AppCompatActivity() {
                     db.collection("users").document(uidd)
                             .update("childs",childs)
                             .addOnSuccessListener {
-                                MainAdapter(MainActivity(), MainActivity().fetchList(), MainActivity()).update()
-                                MainActivity().finish()
+//                                MainAdapter(MainActivity(), MainActivity().fetchList(), MainActivity()).update()
+//                                MainActivity().finish()
                                 val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent);
                                 overridePendingTransition(0,0)

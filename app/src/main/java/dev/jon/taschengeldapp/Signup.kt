@@ -81,6 +81,7 @@ class Signup : AppCompatActivity() {
 
                     val userId = auth.currentUser?.uid
                     uidd = userId!!
+                    childs.clear()
                     val user = hashMapOf(
                         "name" to name,
                         "email" to useremail,
@@ -91,9 +92,8 @@ class Signup : AppCompatActivity() {
                     db.collection("users").document(userId)
                         .set(user)
                         .addOnSuccessListener {
-                            val intent = Intent(this, MainActivity::class.java)
+                            val intent = Intent(this, intro::class.java)
                             startActivity(intent)
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                             finish()
 
                         }

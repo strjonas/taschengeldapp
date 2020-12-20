@@ -38,4 +38,7 @@
     <string name="amount">Amount</string>
     <string name="description">Description</string>
     <string name="cancel">Cancel</string>
+    <string name="lookslike">Looks like you have not added any children yet!
+        Do so by clicking the blue plus button!</string>
+    <string name="general">General</string>
 </resources>

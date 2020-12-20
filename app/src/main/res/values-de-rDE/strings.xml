@@ -23,4 +23,6 @@
     <string name="description">Beschreibung</string>
     <string name="amount">Betrag</string>
     <string name="cancel">zurueck</string>
+    <string name="lookslike">Sieht so aus als hättest du noch kein Kind hinzugefügt. Klicke auf den blauen plus Knopf um dies zu tun!</string>
+    <string name="general">Allgemeines</string>
 </resources>

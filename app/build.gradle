@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "dev.jon.taschengeldapp"
-        minSdkVersion 21
+        minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -49,7 +49,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-auth-ktx'
-
+    implementation 'com.github.AppIntro:AppIntro:6.0.0'
 
 
     implementation 'com.google.firebase:firebase-firestore:22.0.0'

@@ -22,6 +22,7 @@ data class Child(
     var balanceChild: Double
 
 )
+var boo = true
 
 data class AccountChild(
         var info:String,
