@@ -1,15 +1,19 @@
 package dev.jon.taschengeldapp
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.security.AccessController
+import java.util.*
+import java.util.logging.Handler
+import kotlin.concurrent.schedule
 
 
 class MainAdapter(private val context: Context,
@@ -23,7 +27,7 @@ class MainAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.cell_main,parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.cell_main, parent, false)
         return ViewHolder(view)
     }
 
@@ -34,13 +38,13 @@ class MainAdapter(private val context: Context,
     fun update(){
         list.clear()
         for (i in 1..balancesChilds.size) {
-            val child = Child(idsChilds[i-1], namesChilds[i-1],balancesChilds[i-1])
+            val child = Child(idsChilds[i - 1], namesChilds[i - 1], balancesChilds[i - 1])
             list.add(child)
         }
         notifyDataSetChanged()
     }
 
-    private fun pay(id:String, position: Int){
+    private fun pay(id: String, position: Int,holder: ViewHolder){
         var infos:MutableList<String>
         var dates:MutableList<String>
         var transactions:MutableList<Double>
@@ -57,9 +61,9 @@ class MainAdapter(private val context: Context,
 
                     balancesChilds[position] -= money
 
-                    infos.add(0,"Pocket money given!")
-                    dates.add(0,ChildAccountAcitivity().getDate())
-                    transactions.add(0,-money)
+                    infos.add(0, holder.itemView.resources.getString(R.string.money_given))
+                    dates.add(0, ChildAccountAcitivity().getDate())
+                    transactions.add(0, -money)
 
                     conn.update("infos", infos)
                     conn.update("transactions", transactions)
@@ -70,6 +74,7 @@ class MainAdapter(private val context: Context,
                         balance += i
                     }
                     conn.update("balance", balance)
+
                     update()
                 }
 
@@ -80,6 +85,14 @@ class MainAdapter(private val context: Context,
         holder.name.text = data.nameChild
         holder.balance.text = data.balanceChild.toString()  + " " + currencyUser
 
+        val mode = context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
+        when (mode) {
+            Configuration.UI_MODE_NIGHT_YES -> {holder.name.setTextColor(Color.BLACK)}
+            Configuration.UI_MODE_NIGHT_NO -> {}
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {holder.name.setTextColor(Color.BLACK)}
+        }
+        holder.pay.isClickable = true
+
         if(data.balanceChild >= 0){
             holder.balance.setTextColor(Color.parseColor("#0080FF"))
         }else{
@@ -87,17 +100,19 @@ class MainAdapter(private val context: Context,
         }
 
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListenerNew(data,position)
+            cellClickListener.onCellClickListenerNew(data, position)
         }
         holder.pay.setOnClickListener{
-            //Snackbar.make(holder.itemView,"${data.idChild}",Snackbar.LENGTH_LONG).show()
-            pay(data.idChild, position)
+            holder.pay.isEnabled = false
+            pay(data.idChild, position, holder)
+            holder.pay.isEnabled = true
             return@setOnClickListener
+
         }
     }
 }
 
 interface CellClickListenerNew {
-    fun onCellClickListenerNew(data: Child,position: Int)
+    fun onCellClickListenerNew(data: Child, position: Int)
 }
 

@@ -15,7 +15,7 @@
         android:layout_marginStart="162dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="50dp"
-        android:text="SIGN UP"
+        android:text="@string/sign_up"
         android:textColor="#0080FF"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -44,14 +44,15 @@
         android:clickable="true"
         android:gravity="center"
         android:shadowColor="@color/accent"
-        android:text="SIGN UP"
+        android:text="@string/sign_up"
         android:textSize="18sp"
         android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="@+id/view" />
+        app:layout_constraintStart_toStartOf="@+id/view"
+        android:focusable="true" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -68,7 +69,7 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="E-mail"
+            android:text="@string/e_mail"
             android:textColor="#0080FF" />
 
         <Space
@@ -92,7 +93,7 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="@string/password"
             android:textColor="#0080FF" />
 
         <Space
@@ -116,7 +117,7 @@
             android:id="@+id/textView22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/name"
             android:textColor="#0080FF" />
 
         <Space
@@ -150,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
         android:layout_marginTop="50dp"
-        android:text="No account jet? "
+        android:text="@string/already_have_one"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_button" />
 
@@ -160,11 +161,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:clickable="true"
-        android:text="LOGIN!"
+        android:text="@string/login"
         android:textColor="#0080FF"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        android:focusable="true" />
 
     <ProgressBar
         android:id="@+id/progressBar"

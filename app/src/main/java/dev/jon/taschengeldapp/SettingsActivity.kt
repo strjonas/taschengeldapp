@@ -2,11 +2,13 @@ package dev.jon.taschengeldapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlin.concurrent.timerTask
 
 
 class SettingsActivity : AppCompatActivity() {

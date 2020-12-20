@@ -17,7 +17,8 @@
         <activity android:name=".Login" android:theme="@style/noaction"/>
         <activity
             android:name=".addChild"
-            android:theme="@style/noaction" />
+            android:theme="@style/noaction"
+            />
         <activity
             android:name=".ChildAccountAcitivity"
             android:theme="@style/noaction" />

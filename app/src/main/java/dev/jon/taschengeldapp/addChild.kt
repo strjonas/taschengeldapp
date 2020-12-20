@@ -27,7 +27,8 @@ class addChild : AppCompatActivity() {
         auth = Firebase.auth
 
         if(intent.getStringExtra("id") != "null"){
-            editTextTextPersonName.setText(intent.getStringExtra("name"))
+            val name = intent.getStringExtra("name")
+            editTextTextPersonName.setText(name)
             val money =  intent.getDoubleExtra("money",1.0).toString()
             var zahler = 0
             for(x in nums){
@@ -36,7 +37,15 @@ class addChild : AppCompatActivity() {
                 }
                 zahler+=1
             }
-
+            if(intent.getStringExtra("setting") == "mon"){
+                checkbox_monthly.isChecked = true
+            }else{
+                checkbox_weekly.isChecked = true
+            }
+            supportActionBar?.title = "       $name's settings"
+        }
+        else{
+            supportActionBar?.title = "       New Child"
         }
 
         button_addchild.setOnClickListener{

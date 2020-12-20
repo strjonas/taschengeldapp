@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">taschengeldapp</string>
+    <string name="taschengeldmanager">Taschengeld Manager</string>
+    <string name="settings">Einstellungen</string>
+    <string name="back">Zurueck</string>
+    <string name="name_of_the_child">Name des Kindes</string>
+    <string name="name">Name</string>
+    <string name="pocket_money">Taschengeld</string>
+    <string name="setting">Konfiguration</string>
+    <string name="add">Hinzufuegen</string>
+    <string name="weekly_pay">Woechentlich</string>
+    <string name="monthly_pay">Monatlich</string>
+    <string name="pay">Auszahlen</string>
+    <string name="log_out">Ausloggen</string>
+    <string name="sign_up">Regestrieren</string>
+    <string name="password">Passwort</string>
+    <string name="no_account_jet">Noch kein Konto?</string>
+    <string name="login">ANMELDEN</string>
+    <string name="forgot_password">Password vergessen?</string>
+    <string name="already_have_one">Du hast schon ein Konto?</string>
+    <string name="money_given">Taschengeld ausgezahlt!</string>
+</resources>

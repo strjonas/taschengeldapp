@@ -1,11 +1,11 @@
  package dev.jon.taschengeldapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -13,24 +13,32 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_add_child.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.security.AccessController.getContext
 
-class MainActivity : AppCompatActivity(), CellClickListenerNew {
+ class MainActivity : AppCompatActivity(), CellClickListenerNew {
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.title = "Overview"
 
-        val recyclerView: RecyclerView = findViewById(R.id.recViewMain)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = MainAdapter(this, fetchList(), this)
+
+        supportActionBar?.title = "Overview"
+        try {
+            val recyclerView: RecyclerView = findViewById(R.id.recViewMain)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = MainAdapter(this, fetchList(), this)
+        }catch (e: Exception){
+            Snackbar.make(constraintlayout_add_child, "Something went wrong, please restart the app! $e", Snackbar.LENGTH_LONG).show()
+        }
+
 
         findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener { view ->
 
             val intent = Intent(this, addChild::class.java)
-            intent.putExtra("id","null")
+            intent.putExtra("id", "null")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
@@ -56,16 +64,16 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
             super.onOptionsItemSelected(item)
         }
     }
-    override fun onCellClickListenerNew(data: Child,position: Int) {
+    override fun onCellClickListenerNew(data: Child, position: Int) {
         val intent = Intent(this, ChildAccountAcitivity::class.java)
-        intent.putExtra("position",position)
-        intent.putExtra("balance",data.balanceChild)
-        intent.putExtra("id",data.idChild)
-        intent.putExtra("name",data.nameChild)
+        intent.putExtra("position", position)
+        intent.putExtra("balance", data.balanceChild)
+        intent.putExtra("id", data.idChild)
+        intent.putExtra("name", data.nameChild)
 
        loadChildLists(data.idChild, intent)
     }
-    private fun loadChildLists(id:String, intent: Intent){
+    private fun loadChildLists(id: String, intent: Intent){
         val db = Firebase.firestore
 
         db.collection("users").document(uidd).collection("childs").document(id)
@@ -74,19 +82,22 @@ class MainActivity : AppCompatActivity(), CellClickListenerNew {
                     datesChild = it.get("dates") as MutableList<String>
                     infosChild = it.get("infos") as MutableList<String>
                     transactionsizeChild = it.get("transactions") as MutableList<Double>
+
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 .addOnFailureListener{
-                    Snackbar.make(add_child,"Couldn't fetch data", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(add_child, "Couldn't fetch data", Snackbar.LENGTH_LONG).show()
                     return@addOnFailureListener
                 }
 
     }
     fun fetchList(): ArrayList<Child> {
         val list = arrayListOf<Child>()
+
         for (i in 1..balancesChilds.size) {
-            val child = Child(idsChilds[i-1], namesChilds[i-1],balancesChilds[i-1])
+
+            val child = Child(idsChilds[i - 1], namesChilds[i - 1], balancesChilds[i - 1])
             list.add(child)
         }
 

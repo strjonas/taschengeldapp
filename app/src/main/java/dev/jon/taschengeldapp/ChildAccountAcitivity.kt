@@ -50,15 +50,18 @@ class ChildAccountAcitivity : AppCompatActivity(), CellClickListener {
         }
         first.setOnClickListener{
             var moneyper:Double
+            var setting = "mon"
             val db = Firebase.firestore
             db.collection("users").document(uidd).collection("childs").document(id!!)
                     .get()
                     .addOnSuccessListener {
                         moneyper = it.get("moneyper") as Double
+                        setting = it.get("setting") as String
                         val intent = Intent(this, addChild::class.java)
                         intent.putExtra("id",id)
                         intent.putExtra("name",name)
                         intent.putExtra("money", moneyper)
+                        intent.putExtra("setting", setting)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }

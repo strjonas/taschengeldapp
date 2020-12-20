@@ -14,7 +14,7 @@
         android:layout_marginStart="162dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="50dp"
-        android:text="LOGIN"
+        android:text="@string/login"
         android:textColor="#0080FF"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -67,7 +67,7 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="E-mail"
+            android:text="@string/e_mail"
             android:textColor="#0080FF" />
 
         <Space
@@ -91,7 +91,7 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="@string/password"
             android:textColor="#0080FF" />
 
         <Space
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="Forgot Password?" />
+            android:text="@string/forgot_password" />
     </LinearLayout>
 
     <TextView

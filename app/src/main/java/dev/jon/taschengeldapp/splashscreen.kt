@@ -3,6 +3,7 @@ package dev.jon.taschengeldapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -21,10 +22,10 @@ class splashscreen : AppCompatActivity() {
         supportActionBar?.hide();
         auth = Firebase.auth
 
+        balancesChilds.clear()
         val isAuth = checkauth()
         if (isAuth) {
             loadData()
-
 
 
         } else {
@@ -36,7 +37,6 @@ class splashscreen : AppCompatActivity() {
 
 
     }
-
 
     private fun loadData() {
         val db = Firebase.firestore
@@ -52,24 +52,22 @@ class splashscreen : AppCompatActivity() {
                             .get()
                             .addOnSuccessListener {
                                 for (document in it) {
-                                    namesChilds.add(document.get("name").toString())
-                                    idsChilds.add(document.get("id").toString())
+                                    namesChilds.add(0,document.get("name").toString())
+                                    idsChilds.add(0,document.get("id").toString())
 
-
-                                    updateBalance()
                                 }
-
+                                updateBalance()
                             }
                 }
 
     }
 
     private fun updateBalance() {
-
         for (id in idsChilds) {
-                       try {
+            try {
                 updateChildsBalance(id)
-            }catch (e:Exception){
+
+            } catch (e: Exception) {
                 Toast.makeText(this, "$e", Toast.LENGTH_LONG).show()
             }
 
@@ -90,9 +88,9 @@ class splashscreen : AppCompatActivity() {
                     infosChild = it.get("infos") as MutableList<String>
                     datesChild = it.get("dates") as MutableList<String>
 
-                    val info:String
-                    val date:String
-                    val transaction:Double
+                    val info: String
+                    val date: String
+                    val transaction: Double
 
 
                     if (monthly == "mon") {
@@ -128,10 +126,11 @@ class splashscreen : AppCompatActivity() {
                         date = "$dayOfMonth.$month.$year"
                         transaction = paySum * -1
                     }
-                    if(transaction != -0.0 || transaction!=0.0 || transaction!=0.0){
-                        datesChild.add(0,date)
-                        infosChild.add(0,info)
-                        transactionsizeChild.add(0,transaction)
+
+                    if (transaction != -0.0 || transaction != 0.0 || transaction != 0.0) {
+                        datesChild.add(0, date)
+                        infosChild.add(0, info)
+                        transactionsizeChild.add(0, transaction)
                         val conn = db.collection("users").document(uidd).collection("childs").document(id)
 
                         conn.update("dates", datesChild)
@@ -140,18 +139,22 @@ class splashscreen : AppCompatActivity() {
 
                         conn.update("lastpayment", getPayDate())
                         var balance = 0.0
-                        for(i in transactionsizeChild){
+                        for (i in transactionsizeChild) {
                             balance += i
                         }
-                        balancesChilds.add(balance)
+                        transactionsizeChild.clear()
+                        balancesChilds.add(0, balance)
                         conn.update("balance", balance)
 
-                    }else{
+                    } else {
+                        val conn = db.collection("users").document(uidd).collection("childs").document(id)
                         var balance = 0.0
-                        for(i in transactionsizeChild){
+                        for (i in transactionsizeChild) {
                             balance += i
                         }
-                        balancesChilds.add(balance)
+                        transactionsizeChild.clear()
+                        balancesChilds.add(0, balance)
+                        conn.update("balance", balance)
                     }
 
                     val intent = Intent(this, MainActivity::class.java)
@@ -166,10 +169,11 @@ class splashscreen : AppCompatActivity() {
         val currentUser = auth.currentUser
         return currentUser != null
     }
-    fun getPayDate():String{
-        val calendar= Calendar.getInstance(TimeZone.getDefault())
+
+    fun getPayDate(): String {
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
         val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)+1
+        val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_YEAR)
 
         return "$day.$month.$year"
