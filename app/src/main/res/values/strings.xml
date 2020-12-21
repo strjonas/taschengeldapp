@@ -41,4 +41,17 @@
     <string name="lookslike">Looks like you have not added any children yet!
         Do so by clicking the blue plus button!</string>
     <string name="general">General</string>
+    <string name="welcomescreen">This is a tutorial to show you the functionality of this app!</string>
+    <string name="MainPage">Here you can add new children to your collection and view the ones you already added! </string>
+    <string name="Addingachild"> When clicking on the blue plus button you saw on the previous page, you get to this page. Her you specify the settings for your child and add it to your collection!</string>
+    <string name="ChildsLog"> When you add transactions, you can View them at this Screen. You get there by clicking on the name of your child on the Main Page!</string>
+    <string name="Addingtransaction">Here you can see how adding a transaction works! </string>
+    <string name="Letsgetstarted">IMPORTANT: The pocket money you select for your child, gets paid every month/week (depending on what you selected) to your childs account, and you can click the pay button to log that you gave it to your child!</string>
+    <string name="Welcome">Welcome…</string>
+    <string name="Welcome2">Main Page</string>
+    <string name="Welcome3">Adding a child</string>
+    <string name="Welcome4">Transaction log</string>
+    <string name="Welcome5">Adding a Transaction</string>
+    <string name="Welcome6">…Lets get started!</string>
+
 </resources>

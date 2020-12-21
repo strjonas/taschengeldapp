@@ -19,44 +19,43 @@ class intro : AppIntro() {
         // Call addSlide passing your Fragments.
         // You can use AppIntroFragment to use a pre-built fragment
         addSlide(AppIntroFragment.newInstance(
-                title = "Welcome...",
-                description = "This is a tutorial to show you the functionality of this app!",
-                backgroundDrawable = R.drawable.slide_background2,
+                title = resources.getString(R.string.Welcome),
+                description = resources.getString(R.string.welcomescreen),
+                backgroundDrawable = R.drawable.slide_background,
             imageDrawable = R.drawable.logoforeground
 
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "Main Page:",
-                description = "Her you can add new children to your collection and view the ones you already added!",
+                title = resources.getString(R.string.Welcome2),
+                description = resources.getString(R.string.MainPage),
                 imageDrawable = R.drawable.overview,
                 backgroundDrawable = R.drawable.slide_background
 
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "Adding a child: ",
-                description = "When clicking on the blue plus button you saw on the previous page, you get to this page. Her you specify the settings for your child and add it to your collection! ",
+                title = resources.getString(R.string.Welcome3),
+                description = resources.getString(R.string.Addingachild),
                 imageDrawable = R.drawable.addchild,
                 backgroundDrawable = R.drawable.slide_background
 
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "Child's Log: ",
-                description = "When you add transactions, you can View them at this Screen. You get there by clicking on the name of your child on the Main Page!",
+                title =resources.getString(R.string.Welcome4),
+                description = resources.getString(R.string.ChildsLog),
                 imageDrawable = R.drawable.childlog,
                 backgroundDrawable = R.drawable.slide_background
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "Adding transaction: ",
-                description = "Here you can see how adding a transaction looks!",
+                title = resources.getString(R.string.Welcome5),
+                description = resources.getString(R.string.Addingtransaction),
                 imageDrawable = R.drawable.add,
                 backgroundDrawable = R.drawable.slide_background
 
 
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "...Let's get started!",
-                description = "(The pocket money you select for your child, gets" +
-                "paid every month/week (depending on what you selected) to your childs account, and you can click the \"pay\" button to log that you gave it to your child!)",
+                title = resources.getString(R.string.Welcome6),
+                description = resources.getString(R.string.Letsgetstarted),
                 backgroundDrawable = R.drawable.slide_background2
 
 

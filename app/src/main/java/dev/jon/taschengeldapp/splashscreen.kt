@@ -73,7 +73,7 @@ class splashscreen : AppCompatActivity() {
                                         idsChilds.add(0,document.get("id").toString())
 
                                     }
-                                    updateBalance()
+                                    updateChildsBalance()
                                 }
                     }else{
                         val intent = Intent(this, MainActivity::class.java)
@@ -86,99 +86,90 @@ class splashscreen : AppCompatActivity() {
 
     }
 
-    private fun updateBalance() {
-        for (id in idsChilds) {
-            try {
-                updateChildsBalance(id)
 
-            } catch (e: Exception) {
-                Toast.makeText(this, "$e", Toast.LENGTH_LONG).show()
-            }
 
-        }
-    }
-
-    private fun updateChildsBalance(id: String) {
+    private fun updateChildsBalance() {
 
         val db = Firebase.firestore
-        db.collection("users").document(uidd).collection("childs").document(id)
+        db.collection("users").document(uidd).collection("childs")
                 .get()
                 .addOnSuccessListener {
-                    val monthly = it.get("setting") as String
-                    val pocketMoney = it.get("moneyper") as Double
-                    val lastpayment = it.get("lastpayment") as String
+                    for(doc in it){
+                        val id = doc.get("id") as String
+                        val monthly = doc.get("setting") as String
+                        val pocketMoney = doc.get("moneyper") as Double
+                        val lastpayment = doc.get("lastpayment") as String
 
-                    transactionsizeChild = it.get("transactions") as MutableList<Double>
-                    infosChild = it.get("infos") as MutableList<String>
-                    datesChild = it.get("dates") as MutableList<String>
+                        transactionsizeChild = doc.get("transactions") as MutableList<Double>
+                        infosChild = doc.get("infos") as MutableList<String>
+                        datesChild = doc.get("dates") as MutableList<String>
 
-                    val info: String
-                    val date: String
-                    val transaction: Double
-
-
-                    if (monthly == "mon") {
-
-                        val dateArray = lastpayment.split(".")
-                        val lastmonth = dateArray[1]
-                        val lastyear = dateArray[2]
-                        val calender = Calendar.getInstance(TimeZone.getDefault())
-                        val day = calender.get(Calendar.DAY_OF_YEAR)
-                        val month = calender.get(Calendar.MONTH) + 1
-                        val year = calender.get(Calendar.YEAR)
-                        val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
-                        val paySum = (lastmonth.toInt() - month + (lastyear.toInt() - year) * 12) * pocketMoney
-
-                        info = resources.getString(R.string.money_given)
-                        date = "$dayOfMonth.$month.$year"
-                        transaction = paySum * -1
+                        val info: String
+                        val date: String
+                        val transaction: Double
 
 
-                    } else {
+                        if (monthly == "mon") {
 
-                        val dateArray = lastpayment.split(".")
-                        val lastday = dateArray[0]
-                        val lastyear = dateArray[2]
-                        val calender = Calendar.getInstance(TimeZone.getDefault())
-                        val day = calender.get(Calendar.DAY_OF_YEAR)
-                        val month = calender.get(Calendar.MONTH) + 1
-                        val year = calender.get(Calendar.YEAR)
-                        val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
-                        val paySum = (lastday.toInt() - day + (lastyear.toInt() - year) * 365) * pocketMoney
+                            val dateArray = lastpayment.split(".")
+                            val lastmonth = dateArray[1]
+                            val lastyear = dateArray[2]
+                            val calender = Calendar.getInstance(TimeZone.getDefault())
+                            val month = calender.get(Calendar.MONTH) + 1
+                            val year = calender.get(Calendar.YEAR)
+                            val dayOfMonth = calender.get(Calendar.DAY_OF_MONTH)
+                            val paySum = (lastmonth.toInt() - month + (lastyear.toInt() - year) * 12) * pocketMoney
 
-                        info = resources.getString(R.string.money_given)
-                        date = "$dayOfMonth.$month.$year"
-                        transaction = paySum * -1
-                    }
+                            info = resources.getString(R.string.money_given)
+                            date = "$dayOfMonth.$month.$year"
+                            transaction = paySum * -1
 
-                    if (transaction != -0.0 || transaction != 0.0 || transaction != 0.0) {
-                        datesChild.add(0, date)
-                        infosChild.add(0, info)
-                        transactionsizeChild.add(0, transaction)
-                        val conn = db.collection("users").document(uidd).collection("childs").document(id)
 
-                        conn.update("dates", datesChild)
-                        conn.update("infos", infosChild)
-                        conn.update("transactions", transactionsizeChild)
+                        } else {
 
-                        conn.update("lastpayment", getPayDate())
-                        var balance = 0.0
-                        for (i in transactionsizeChild) {
-                            balance += i
+                            val dateArray = lastpayment.split(".")
+                            val lastweek = dateArray[0]
+                            val lastyear = dateArray[2]
+                            val calender = Calendar.getInstance(TimeZone.getDefault())
+                            val week = calender.get(Calendar.WEEK_OF_YEAR)
+                            val month = calender.get(Calendar.MONTH) + 1
+                            val year = calender.get(Calendar.YEAR)
+                            val paySum = (lastweek.toInt() - week + (lastyear.toInt()-year)*52)* pocketMoney
+
+                            info = resources.getString(R.string.money_given)
+                            date = "$week.$month.$year"
+                            transaction = paySum * -1
                         }
-                        transactionsizeChild.clear()
-                        balancesChilds.add(0, balance)
-                        conn.update("balance", balance)
 
-                    } else {
-                        val conn = db.collection("users").document(uidd).collection("childs").document(id)
-                        var balance = 0.0
-                        for (i in transactionsizeChild) {
-                            balance += i
+                        if (transaction != -0.0 || transaction != 0.0 || transaction != 0.0) {
+                            datesChild.add(0, date)
+                            infosChild.add(0, info)
+                            transactionsizeChild.add(0, transaction)
+                            val conn = db.collection("users").document(uidd).collection("childs").document(id)
+
+                            conn.update("dates", datesChild)
+                            conn.update("infos", infosChild)
+                            conn.update("transactions", transactionsizeChild)
+
+                            conn.update("lastpayment", getPayDate())
+                            var balance = 0.0
+                            for (i in transactionsizeChild) {
+                                balance += i
+                            }
+                            transactionsizeChild.clear()
+                            balancesChilds.add(0, balance)
+                            conn.update("balance", balance)
+
+                        } else {
+                            val conn = db.collection("users").document(uidd).collection("childs").document(id)
+                            var balance = 0.0
+                            for (i in transactionsizeChild) {
+                                balance += i
+                            }
+                            transactionsizeChild.clear()
+                            balancesChilds.add(0, balance)
+                            conn.update("balance", balance)
                         }
-                        transactionsizeChild.clear()
-                        balancesChilds.add(0, balance)
-                        conn.update("balance", balance)
                     }
 
                     val intent = Intent(this, MainActivity::class.java)
@@ -196,10 +187,10 @@ class splashscreen : AppCompatActivity() {
 
     fun getPayDate(): String {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val week = calendar.get(Calendar.WEEK_OF_YEAR)
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
-        val day = calendar.get(Calendar.DAY_OF_YEAR)
 
-        return "$day.$month.$year"
+        return "$week.$month.$year"
     }
 }

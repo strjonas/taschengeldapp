@@ -9,7 +9,7 @@
     <string name="pocket_money">Taschengeld</string>
     <string name="setting">Konfiguration</string>
     <string name="add">Okay</string>
-    <string name="weekly_pay">Woechentlich</string>
+    <string name="weekly_pay">Wöchentlich</string>
     <string name="monthly_pay">Monatlich</string>
     <string name="pay">Zahlen</string>
     <string name="log_out">Ausloggen</string>
@@ -25,4 +25,16 @@
     <string name="cancel">zurueck</string>
     <string name="lookslike">Sieht so aus als hättest du noch kein Kind hinzugefügt. Klicke auf den blauen plus Knopf um dies zu tun!</string>
     <string name="general">Allgemeines</string>
+    <string name="Welcome">Willkommen...</string>
+    <string name="Welcome2">Hauptseite</string>
+    <string name="Welcome3">Kind hinzufügen</string>
+    <string name="Welcome4">Transaktions Aufzeichnungen</string>
+    <string name="Welcome5">Eine Transaktion hinzufügen</string>
+    <string name="Welcome6">...Auf gehts!</string>
+    <string name="Letsgetstarted">Wichtig: Das Geld welches sie für ihr  Kind ausgewählt haben, wird jeden Monat automatisch auf das Konto gegeben und sie können mit dem zahl-Knopf signalisieren dass sie das Taschengeld ausgezahlt haben. Diese Transaction wird in den Aufzeichnungen festgehalten!</string>
+    <string name="Addingtransaction">So sieht das Hinzufügen einer Transaktion aus!</string>
+    <string name="ChildsLog">Wenn Transaktionen vorhanden sind, können sie diese auf diesem Schirm ansehen. Dort gelangen sie hin indem sie auf der Hauptseite auf dem Namen des jeweiligen Kindes drücken!</string>
+    <string name="Addingachild">Wenn sie den blauen Plus-Knopf drücken den sie auf der vorherigen Seite gesehen haben klicken, kommen sie auf diese Seite. Hier legen siedie Einstellungen für dein Kind fest und fügen es zu ihrer Sammlung hinzu!</string>
+    <string name="MainPage">Hier können sie neue Kinder hinzufügen und die sehen, die sie bereits hinzugefügt haben!</string>
+    <string name="welcomescreen">Die folgenden Folien sollen ihnen in die funktionalitäten dieser App näher bringen!</string>
 </resources>

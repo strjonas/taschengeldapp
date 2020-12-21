@@ -46,6 +46,10 @@ class SettingsActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish()
         }
+        privacypolicy.setOnClickListener{
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/document/d/14upiM8GBqMtLLmce2TAOMn8dS8AOPcGhuy0JBb1iCW8/edit?usp=sharing"));
+            startActivity(browserIntent)
+        }
 
     }
 

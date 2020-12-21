@@ -50,7 +50,6 @@ import java.io.ByteArrayOutputStream
                 finish()
             }
         }else{
-            view3.visibility = View.INVISIBLE
             imageView2.visibility = View.INVISIBLE
             textView.visibility = View.INVISIBLE
         }

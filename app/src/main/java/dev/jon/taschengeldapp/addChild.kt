@@ -109,11 +109,11 @@ class addChild : AppCompatActivity() {
         val db =Firebase.firestore
 
         val id = System.currentTimeMillis().toString()
-        balancesChilds.add(0.0)
-        idsChilds.add(id)
-        namesChilds.add(name)
+        balancesChilds.add(0,0.0)
+        idsChilds.add(0,id)
+        namesChilds.add(0,name)
 
-        childs.add(id)
+        childs.add(0,id)
 
         val date = splashscreen().getPayDate()
         val d = mutableListOf<String>();
